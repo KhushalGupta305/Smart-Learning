@@ -10,11 +10,11 @@ $(document).ready(function() {
 // Setup AJAX with CSRF and crossdomain protection
 // https://docs.djangoproject.com/en/dev/ref/contrib/csrf/
 setup_ajax = function() {
-
+var regex = '!/^(GET|HEAD|OPTIONS|TRACE)$/';
     $.ajaxSetup({
         crossDomain: false,
         beforeSend: function(xhr, settings) {
-            if (!/^(GET|HEAD|OPTIONS|TRACE)$/.test(settings.type)) {
+            if (regex.test(settings.type)) {
                 xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
             }
         }
